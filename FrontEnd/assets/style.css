@@ -98,6 +98,34 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+/*ajout création boutton filtres */
+
+ .btnfiltres {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 75px;
+	gap: 3%;
+ }
+.filtres{
+	border-color: #1D6154;
+	border-radius:60px ;
+	background-color: white;
+	width: 150px;
+	height: 50px;
+	color: #1D6154;
+	font-weight: bold;
+}
+#tous{
+	background-color: #1D6154;
+	color: white;
+}
+/* 
+.filtres:hover{
+background-color: #1D6154;	
+}
+*/
+
 #introduction {
 	display: flex;
 	align-items: center;
