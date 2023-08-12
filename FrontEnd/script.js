@@ -1,11 +1,16 @@
 // constante pour stocker la liste des travaux (un Set n'a pas de doublon)
 const allWorks = new Set()
+const allCats = new Set()
+
+//constante des elements html
+const gallery = document.querySelector(".gallery")
+const btnfiltres = document.querySelector(".btnfiltres")
 
 //fonction pour contacter la base de donnée pour récupéré des info, le paraméttre type est du texte qui va se rajouter dans le lien
 async function getDatabaseInfo(type) {
-	//on enregistre dans response la réponse du serveur sur le lien donnée
+//on enregistre dans response la réponse du serveur sur le lien donnée
 	const response = await fetch(`http://localhost:5678/api/${type}`)
-	//si il n'ya pas d'erreur
+//si il n'ya pas d'erreur
 	if (response.ok) {
 		const data = await response.json()
 		return data
@@ -19,120 +24,86 @@ async function getDatabaseInfo(type) {
 
 // fonction d'initialisation, elle permet de preparer les Set et d'appeler les fonction du code
 async function init() {
-	//on appel la fonction qu'on a crée (pour appeley uen fonciton "async", il faut etre dans une fonction "async" et utilisé "await"
+//on appel la fonction qu'on a crée (pour appeler une fonciton "async", il faut etre dans une fonction "async" et utilisé "await"
 	const works = await getDatabaseInfo("works")
-	//pour chaque travaux de la liste, on les rajoute a notre constante allWorks
+//pour chaque travaux de la liste, on les rajoute a notre constante allWorks
 	for (const work of works) {
 		allWorks.add(work)
 	}
-	//on appel la fonction qui va tout afficher
+	const cats = await getDatabaseInfo("categories")
+	
+//pour chaque catégorie de la liste, on les rajoute a notre constante allCats
+	for (const cat of cats) {
+		allCats.add(cat)
+	}
+//on appel la fonction les plus importantes (quon regroupe)
 	displayWorks()
+	displayButton()
 }
 init()
 
-//fonction qui permettra d'afficher les works sur la page
-function displayWorks(filtre = 0) {
-	console.log(allWorks)
-	//fonction a complété pour afficher les travaux en utilisant allWorks
+//fonction qui permettra d'afficher les images(travaux=works) sur la page.
+function displayWorks(filtre = "0") {
+
+// supprime la gallerie du HTML grace aux "" vide en disant que la galerie de l'html est égale à un vide .
+	gallery.innerHTML = "";
+
+//Triage des filtres en fonction du categoryID ( si filtres est different à 0 alirs on prends categoryId qui est = aux autres filtres.
+	let selectedWorks = allWorks
+	if(filtre != "0"){
+		console.log(selectedWorks);
+		selectedWorks = [...selectedWorks].filter((work) => work.categoryId == filtre)
+	}
+//Création de la gallerie via JVS => html ( juste src et figcaption necessaire = figure)
+	const fragment = document.createDocumentFragment()
+	for (const work of selectedWorks) {
+		const figure = document.createElement("figure")
+		figure.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}">
+							<figcaption>${work.title}</figcaption>`
+//Parent tous regroupés dans "fragment"
+							fragment.appendChild(figure)
+	}
+	gallery.appendChild(fragment)
 }
-
-// supprime la gallerie du HTML
-const gallery = document.querySelector(".gallery")
-const galleryImages = [...gallery.querySelectorAll("figure")]
-for (const image of galleryImages) {
-	image.remove()
-}
-
-//Création de la gallerie via JVS
-const newGalleryImages = await getDatabaseInfo("works")
-for (const work of newGalleryImages) {
-	const figure = document.createElement("figure")
-	const image = document.createElement("img")
-	const figcaption = document.createElement("figcaption")
-
-
-	image.src = work.imageUrl
-	image.alt = work.title
-	figcaption.innerHTML = work.title
-	/*Pr que les button filtres en fonction des categories*/
-	// image.category=btnfiltres
-
-	figure.appendChild(image)
-	figure.appendChild(figcaption)
-	gallery.appendChild(figure)
-
-}
-//recuperation des infos des works pr les trier
-// let herWorks = [
-// 	{
-// 	id: 1,
-// 	name:"abajour Tahina"
-// 	},
-// 	{ 
-// 	id : 2,
-// 	name:"appartement Paris"},
-// 	{
-//      id : 3,
-// 	 name: "restaurant Sushishen"
-// 	},
-// 	{
-// 	id : 4,
-// 	name: "Villa la balisiere"
-// 	},
-// 	{
-// 	id: 5,
-// 	name: "structure thermopolis"	
-// 	},
-// 	{
-// 	id:6,
-// 	name:"appartement Paris X"	
-// 	},
-// 	{
-// 	id:7,
-// 	name:"pavillon le coteau"
-//     },
-//    {
-// 	id:8,
-//     name:"villa Ferneze" 
-//    },
-//    {
-// 	id:9,
-// 	name:"appartement Paris"
-//    },
-//    {
-// 	id:10,
-// 	name: "bar"
-//    },
-//    {
-// 	id:11,
-// 	name:"hotel"
-//    }
-
-// ];
-
-const herWorks = await getDatabaseInfo("works")
-const allCategories = [...new Set(herWorks.map(work => work.category.name))]
-const btnfiltres = document.querySelector(".btnfiltres")
+//fonction "on" des boutons.
+function displayButton(){
+	const fragment = document.createDocumentFragment()
 
 //Bouton Tous 
+	const buttonTous = document.createElement("button")
+	buttonTous.dataset.id = "0"
+	buttonTous.textContent = "Tous"
+	buttonTous.className = "filtres"
+	buttonTous.classList.add("active")//ajouter la classe active au btn Tous (+css)
 
-const buttonTous = document.createElement("button")
-buttonTous.innerHTML = "Tous"
-buttonTous.className = "filtres"
-btnfiltres.appendChild(buttonTous)
+	fragment.appendChild(buttonTous)
 
-// clique filtrant
-buttonTous.addEventListener("click", () => {
-	buttonTous.classliste.toggle("active");
-	console.log("buttonTous")
+// Création des autres boutons avec une boucle for.
+	for (const category of allCats) {
+		const buttonOthers = document.createElement("button")
+		buttonOthers.textContent = category.name
+		buttonOthers.dataset.id = category.id
+		buttonOthers.className = "filtres"
+		fragment.appendChild(buttonOthers)
+	}
+	btnfiltres.appendChild(fragment)
 
+	//Ajout de l'écoute des filtres
+	addFilterListener()	
+}
 
-	// autres bouton 
-	for (const category of allCategories) {
-		const button = document.createElement("button")
-		button.innerHTML = category
+//Ecoute des filtres créer en "function" par rapport au click by Id 
+function addFilterListener(){
+	const filters = document.querySelectorAll(".filtres")
+	for (const filter of filters) {
+		filter.addEventListener("click",(e) => {
+			const button = e.target
+			const id = button.dataset.id
 
-		// button.id=category.id
-		button.className = "filtres"
-		btnfiltres.appendChild(button)
-}});
+//Si le bouton est actif on remove les autres filtres
+			document.querySelector(".active").classList.remove("active")
+			button.classList.add("active")
+			displayWorks(id)
+		})
+	}
+}

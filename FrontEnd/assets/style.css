@@ -116,10 +116,11 @@ li:hover {
 	color: #1D6154;
 	font-weight: bold;
 }
-#tous{
+.active, .btnfiltres :hover{
 	background-color: #1D6154;
 	color: white;
 }
+
 /* 
 .filtres:hover{
 background-color: #1D6154;	
