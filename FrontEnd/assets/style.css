@@ -3,19 +3,87 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -23,100 +91,287 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
+	color: black;
 }
+
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
-ol, ul {
+
+ol,
+ul {
 	list-style: none;
+
 }
-blockquote, q {
+
+blockquote,
+q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
+	margin: auto;
+	font-family: 'Work Sans';
 	font-size: 14px;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
-}
-section {
-	margin: 50px 0
+	margin: 50px 0;
 }
 
-h1{
+section {
+	margin: 50px 0;
+}
+
+/** OVERLAY **/
+.overlay {
+	background-color: black;
+	height: 59px;
+	width: 100%;
+	margin: 0;
+
+}
+
+.banniere {
+	margin-left: 410px;
+
+}
+
+
+
+.upChange {
+	width: 200px;
+	height: 35px;
+	border-radius: 60px;
+	font-family: work sans;
+	font-size: 12px;
+	font-weight: bold;
+	color: black;
+	margin-top: 12px;
+}
+
+#edition,
+#logo {
+	text-decoration: none;
+	color: white;
+	margin-top: 10px;
+}
+
+
+/* FIN overlay */
+
+/*modal 1 */
+* {
+	box-sizing: border-box;
+}
+
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-wrapper {
+	width: 630px;
+	height: 750px;
+	padding: 20px;
+	background-color: white;
+}
+
+#titlemodal {
+	font-size: 26px;
+	margin-top: 35px;
+	display: flex;
+	justify-content: center;
+}
+
+.js-modal-close {
+	display: flex;
+	justify-content: flex-end;
+}
+.hr {
+	border: none;
+	color: #B3B3B3;
+	width: 450px;
+	border: 1px solid #B3B3B3;	
+	
+}
+
+#btnMenuShow{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	margin-top: 30px;
+
+}
+.buttonAddPhotos {
+	width: 230px;
+	height: 35px;
+	border-radius: 60px;
+	background-color: #1D6154;
+	font-weight: bold;
+	color: white;
+}
+
+a.delectGal {
+	color: red;
+	margin-bottom: 30px;
+	font-family: 'Syne';
+	font-size: smaller;
+}
+
+.galleryPhoto {
+	width: 100%;
+    margin-left: 35px ;
+	gap: 20px;
+	padding: 20px;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin-top: 20px; 
+}
+.figure-modal-add img{
+	width: 77px;
+	height: 102px;
+	position: relative;
+    margin: 10%;
+}
+.delete-icon{
+	color: #FFFFFF;
+	background-color:#000000;
+	border-radius: 2px;
+	font-size: 10px;
+	padding: 5px;
+	cursor: pointer;
+}
+#moveIcon{
+display: flex;
+}
+
+h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
 }
 
-h1 > span {
+h1>span {
 	font-family: 'Work Sans';
-	font-size:10px;
+	font-size: 10px;
 	letter-spacing: 0.1em;
-;
+
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
+
+/* Modifier + icone a coté du H2 Mes projets*/
+.projectandMod {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	gap: 20px;
+}
+
+#buttonModal {
+	margin-top: 10px;
+	color: black;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 
 }
-nav li {
+
+nav li a {
 	padding: 0 10px;
 	font-size: 1.2em;
+	text-decoration: none;
 }
 
-li:hover {
+li a:hover {
 	color: #B1663C;
 }
+
 /*ajout création boutton filtres */
 
- .btnfiltres {
+.btnfiltres {
 	display: flex;
 	justify-content: center;
 	margin-top: 20px;
 	margin-bottom: 75px;
 	gap: 3%;
- }
-.filtres{
+}
+
+.filtres {
 	border-color: #1D6154;
-	border-radius:60px ;
+	border-radius: 60px;
 	background-color: white;
 	width: 150px;
 	height: 50px;
 	color: #1D6154;
 	font-weight: bold;
 }
-.active, .btnfiltres :hover{
+
+.active,
+.btnfiltres :hover {
 	background-color: #1D6154;
 	color: white;
 }
@@ -131,18 +386,28 @@ background-color: #1D6154;
 	display: flex;
 	align-items: center;
 }
+
 #introduction figure {
-	flex: 1
+	flex: 1;
 }
+
 #introduction img {
 	display: block;
 	margin: auto;
 	width: 80%;
 }
 
-#introduction article {
-	flex: 1
+/** Ajout du modifier et petit logo sous image intro ( logoMod ) */
+.logoMod {
+	margin-top: 20px;
+	margin-left: 55px;
+
 }
+
+#introduction article {
+	flex: 1;
+}
+
 #introduction h2 {
 	margin-bottom: 1em;
 }
@@ -150,10 +415,12 @@ background-color: #1D6154;
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -166,20 +433,24 @@ background-color: #1D6154;
 	width: 100%;
 
 }
+
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
+
+#contact>* {
 	text-align: center;
 
 }
-#contact h2{
+
+#contact h2 {
 	margin-bottom: 20px;
 }
+
 #contact form {
 	text-align: left;
-	margin-top:30px;
+	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -190,23 +461,25 @@ margin: auto;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 #contact label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin: 2em auto;
 	width: 180px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
 }
 
 footer nav ul {
@@ -215,3 +488,90 @@ footer nav ul {
 	margin: 2em
 }
 
+/** Page connexion **/
+.PageDeConnexion {
+	background-color: #FFFEF8;
+}
+
+.title {
+	margin-left: 70px;
+}
+
+#myHeader {
+	margin-right: 70px;
+}
+
+#Login {
+	font-size: 50px;
+	color: #1D6154;
+	font-family: Syne;
+	display: flex;
+	justify-content: center;
+	border-bottom: 50%;
+}
+
+#connexionPage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 100px;
+	margin-bottom: 200px;
+}
+
+#ConnexionForm {
+	display: flex;
+	flex-direction: column;
+}
+
+#ConnexionForm label {
+	margin-top: 50px;
+	text-align: left;
+}
+
+#email {
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	background-color: #FFFFFF;
+	border: none;
+	width: 300px;
+	height: 40px;
+	margin-top: 10px;
+}
+
+#mdp {
+	margin-top: 40px;
+	margin-left: 10px;
+}
+
+#password {
+	width: 300px;
+	height: 40px;
+	background-color: #FFFFFF;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-top: 10px;
+
+}
+
+#MpOubli {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 25px;
+	color: black;
+	font-family: work sans;
+	text-decoration: underline black 1px;
+
+}
+
+#btnConnexion {
+	margin-top: 40px;
+	width: 170px;
+	height: 45px;
+	border-radius: 60px;
+}
+
+#mentions {
+	margin-top: 200px;
+}
