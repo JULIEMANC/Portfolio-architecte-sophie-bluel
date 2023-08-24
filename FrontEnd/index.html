@@ -12,20 +12,20 @@
 	<script src="https://kit.fontawesome.com/8dd5e4bc3f.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="javascript/script.js" defer></script>
-	<script src="./Javascript/modale1.js" defer></script>
+	<script type="module" src="./javascript/script.js" defer></script>
+	<script type="module" src="./Javascript/modale.js" defer></script>
 </head>
 
 <body>
 
-<!-- OVERLAY BLACK TOP -->
-	<div class="overlay"style="display: none;">
-	   <div class="banniere">
+	<!-- OVERLAY BLACK TOP -->
+	<div class="overlay" style="display: none;">
+		<div class="banniere">
 			<i id="logo" class="fa-regular fa-pen-to-square"></i>
-			<a href="#"  id="edition">Mode édition</a>
+			<a href="#" id="edition">Mode édition</a>
 			<button class="upChange" display="none">publiez les changements</button>
 		</div>
-		</div>
+	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 		<nav>
@@ -33,7 +33,7 @@
 				<li class="projets"><a href="#portfolio">projets</a></li>
 				<li class="contact"><a href="#contact">contact</a></li>
 				<li id="connexion"><a href="./login.html">login</a></li>
-				<li id="deconnexion"style="display: none;"><a href="./login.html">logout</a></li>
+				<li id="deconnexion" style="display: none;"><a href="./login.html">logout</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -42,7 +42,7 @@
 		<section id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
-				<figcaption class="logoMod"><i class="fa-regular fa-pen-to-square"></i> modifier</figcaption>
+				<figcaption class="logoMod" style="display: none;"><i class="fa-regular fa-pen-to-square"></i> modifier</figcaption>
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -56,68 +56,116 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<div class="projectandMod"> 
+			<div class="projectandMod">
 				<h2>Mes Projets</h2>
-					<!--Modale 1 -->
-				<a href="#modal1" class="js-modal" id="buttonModal"><i  class="fa-regular fa-pen-to-square"></i>Modifier</a>
-				
-				<aside id="modal1" class="modal"  role="dialog"  aria-hidden="true" aria-describedby="titlemodal" style="display: none;">
+				<!--Modale 1 -->
+			
+				<a href="#modal1" class="js-modal" id="buttonModal"style="display: none;">
+					<i  class="fa-regular fa-pen-to-square"></i>Modifier</a>
+
+				<aside id="modal1" class="modal" role="dialog" aria-hidden="true" aria-describedby="titlemodal"
+					style="display: none;">
 					<div class="modal-wrapper js-modal-stop">
 						<span class="js-modal-close"><i class="fa-solid fa-xmark"></i></span>
 						<h3 id="titlemodal">Galerie photo</h3>
-						<i id=moveIcon class="fa-solid fa-arrows-up-down-left-right"></i>
-                       <!-- Gallery photo dans modal-->
-						<div class="galleryPhoto"></i></div>
-						
-						
-							<hr class="hr"></hr>
-							<div id="btnMenuShow" >
-								
-						<button class ="buttonAddPhotos" href="#" >Ajouter une photo</button>
-						<a href="#" class="delectGal">Supprimer la galerie</a>
-					</div>
-					<!--Modal 2-->
-					<aside class="modal-addwork">
-						<span class="icons">
-							<i class="fa-solid fa-arrow-left "></i>
-							<span class="js-modal-close"><i class="fa-solid fa-xmark"></i>
-							</span>
-						<p>Ajout photo</p>
-						<form id="form-addwork" action="#" method="post" enctype="multipart/form-data">
-							<div id="img-container">
-							  <i class="fa-solid fa-image"></i>
-							  <label id="input-container" for="add-imgbutton"><span>+ Ajouter photo</span>
-								<input type="file" id="add-imgbutton" accept=".png, .jpg">
-							  </label>
-							  <p>jpg, png: 4mo max</p>
-							</div>
-							<div class="input-title-category">
-							  <div id="info-title" class="input-title-category">
-								<label for="title-img">Titre</label>
-								<input type="text" id="title-img">
-							  </div>
-							  <label for="category-option">Catégorie</label>
-							  <select id="category-option">
-								<option></option>
-							  </select>
-							</div>
-							<hr>
-							<input type="submit" name="submit-work" id="submit-work" value="Valider">
-						  </form>
-					</div>
-				  </div>
+
+						<!-- Gallery photo dans modal-->
+						<div class="galleryPhoto">
+							<i id=moveIcon class="fa-solid fa-arrows-up-down-left-right"></i>
+						</div>
+
+
+						<hr class="hr">
+						</hr>
+						<div id="btnMenuShow">
+
+							<button class="buttonAddPhotos" href="">Ajouter une photo</button>
+							<a href="" class="delectGal">Supprimer la galerie</a>
+						</div>
 					</div>
 				</aside>
-			</div>
+				<!--fin modale 1--> 
+                <!--Modal addwork -->
+				<a href="#modal-addwork" class="js-modal" id="buttonAddPhotos"style="display: none;"></a>
 
-			
-	          <!--FIN MODALE-->
-			  
+			<aside id="modal-addwork"class="modal-addwork" role="dialog" aria-hidden="true" aria-describedby="titlemodal"
+				style="display: none;">
+
+				<div id="addWork" class="modal-wrapper js-modal-stop">
+
+					<span class="icons">
+					<i class="fa-solid fa-arrow-left"></i>
+					<div id="close2" class="js-modal-close"> <i class="fa-solid fa-xmark"></i></div>
+					</span>
+					<h3>Ajout photo</h3>
+
+					<form id="form-addwork" action="#" method="post" enctype="multipart/form-data">
+					
+					<div id="btnMenuShow">
+
+						<div id="img-container">
+							<i class="fa-solid fa-image"></i>
+							<label id="input-container" for="add-imgbutton"><span class="addPhoto">+ Ajouter photo</span>
+								<input type="file" id="add-imgbutton" accept=".png, .jpg">
+							</label>
+							<p>jpg, png: 4mo max</p>
+						</div>
+						<div class="input-title-category">
+							<div id="info-title" class="input-title-category">
+								<label for="title-img">Titre</label>
+								<input type="text" id="title-img">
+							</div>
+							<label for="category-option">Catégorie</label>
+							<select id="category-option">
+								<option></option>
+							</select>
+						</div>
+					</div>
+						<hr class="hr">
+				</hr>
+						<input type="submit" name="submit-work" id="submit-work" value="Valider">
+					</form>
+				</div>
+				
+				</aside> 
+
+
+				<!-- modale test
+				<aside class="modal-addwork" class="js-modal">
+					<span class="icons">
+						<i class="fa-solid fa-arrow-left "></i>
+						<div id="close2" class="js-modal-close"><i class="fa-solid fa-xmark"></i></div>
+					</span>
+
+					<h3>Ajout photo</h3>
+
+					<form id="form-addwork" action="#" method="post" enctype="multipart/form-data">
+						<div id="img-container">
+							<i class="fa-solid fa-image"></i>
+							<label id="input-container" for="add-imgbutton"><span class="addPhoto">+ Ajouter photo</span>
+								<input type="file" id="add-imgbutton" accept=".png, .jpg">
+							</label>
+							<p>jpg, png: 4mo max</p>
+						</div>
+						<div class="input-title-category">
+							<div id="info-title" class="input-title-category">
+								<label for="title-img">Titre</label>
+								<input type="text" id="title-img">
+							</div>
+							<label for="category-option">Catégorie</label>
+							<select id="category-option">
+								<option></option>
+							</select>
+						</div>
+						<hr>
+						<input type="submit" name="submit-work" id="submit-work" value="Valider">
+					</form>
+				</aside> -->
+			</div>
+			<!--FIN MODALE-->
+
 			<div class="btnfiltres" style="display: true ;">
-				<!-- <button class="filtres" id="tous">Tous</button>
-		<button class="filtres"id="objets">Objets</button>
-		<button class="filtres" id="appart">Appartements</button>
-		<button class="filtres" id="hotels">Hôtels & restaurants</button> -->
+		
 			</div>
 			<div class="gallery">
 				<figure>

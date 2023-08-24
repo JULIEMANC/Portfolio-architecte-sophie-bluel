@@ -1,3 +1,5 @@
+import * as modal from "./modale.js"
+
 // constante pour stocker la liste des travaux (un Set n'a pas de doublon)
 const allWorks = new Set()
 const allCats = new Set()
@@ -12,10 +14,8 @@ async function getDatabaseInfo(type) {
 	const response = await fetch(`http://localhost:5678/api/${type}`)
 	//si il n'ya pas d'erreur
 	if (response.ok) {
-		const data = await response.json()
-		return data
 		//on renvoie la réponse sous format json
-		return await response.json()
+		return response.json()
 	} else {
 		// sinon on affiche un log de la response pour trouver d'ou vient l'erreur
 		console.log("echec du fetch", response)
@@ -26,6 +26,7 @@ async function getDatabaseInfo(type) {
 async function init() {
 	//on appel la fonction qu'on a crée (pour appeler une fonciton "async", il faut etre dans une fonction "async" et utilisé "await"
 	const works = await getDatabaseInfo("works")
+
 	//pour chaque travaux de la liste, on les rajoute a notre constante allWorks
 	for (const work of works) {
 		allWorks.add(work)
@@ -40,20 +41,14 @@ async function init() {
 	displayWorks()
 	displayButton()
 	isAdmin()
-
+	modal.setupModal()
+	modal.display()
+	// modal.DeleteWork()
+	// //  modal. updateAfterDelete()
 }
 init()
 
-// PR TEST 1
-// // //Création tableau2 qui servira a etre afficher dans le mode edition 
-// export let worksBis= allWorks.map((work) =>{
-// 	return{
-// 		id:work.id,
-// 		imageUrl:work.imageUrl,
-// 		title:work.title,
-// 		categoryId:work.categoryId,
-// 	};
-// } );
+
 
 //fonction qui permettra d'afficher les images(travaux=works) sur la page.
 function displayWorks(filtre = "0") {
@@ -103,6 +98,7 @@ function displayButton() {
 
 	//Ajout de l'écoute des filtres
 	addFilterListener()
+	
 }
 
 //Ecoute des filtres créer en "function" par rapport au click by Id 
@@ -142,16 +138,25 @@ function isAdmin() {
         let deconnexion = document.getElementById("deconnexion")
         deconnexion.style.display = null
        
-		// apparitions des boutons
+		//apparitions des boutons
         let upChange = document.querySelector(".upChange")
         let buttonModal = document.getElementById("buttonModal")
+		let logoMod = document.querySelector(".logoMod")
         upChange.style.display = null
         buttonModal.style.display = null
+		logoMod.style.display=null
+
 
         //disparition des filtres 
         let filtre = document.querySelector(".btnfiltres")
         filtre.style.display = "none"
     }}
 
+// function  updateAfterDelete(id) {
+// 	for (const work of allWorks){
+// 		if (work.id)allWorks.remove()
+// 		displayWorks()	
+// 	}
+// }
 
 
