@@ -201,7 +201,8 @@ section {
 	box-sizing: border-box;
 }
 
-.modal , .modal-addwork{
+.modal,
+.modal-addwork {
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -209,16 +210,15 @@ section {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgb(0, 0, 0);
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-wrapper , #addWork{
+.modal-wrapper,
+#addWork {
 	width: 630px;
 	height: 750px;
 	padding: 20px;
 	background-color: white;
-
 
 }
 
@@ -233,14 +233,15 @@ section {
 	display: flex;
 	justify-content: flex-end;
 }
+
 .hr {
 	border: none;
 	width: 415px;
-	border: 1px solid #B3B3B3;	
-	
+	border: 1px solid #B3B3B3;
+
 }
 
-#btnMenuShow{
+#btnMenuShow {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -249,6 +250,7 @@ section {
 	margin-top: 30px;
 
 }
+
 .buttonAddPhotos {
 	width: 230px;
 	height: 35px;
@@ -265,10 +267,10 @@ a.delectGal {
 	font-size: smaller;
 }
 
-.galleryPhoto {
+.galleryModal {
 	position: relative;
 	width: 100%;
-    margin-left: 35px ;
+	margin-left: 35px;
 	gap: 20px;
 	padding: 20px;
 	position: relative;
@@ -276,30 +278,34 @@ a.delectGal {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	margin-top: 20px; 
+	margin-top: 20px;
 }
-.figure-modal-add img{
+
+.figure-modal-add img {
 	width: 77px;
 	height: 102px;
 	position: relative;
-    margin: 10%;
+	margin: 10%;
 }
-.deleteIcon{
+
+ .delete-icon {
 	color: #FFFFFF;
-	background-color:#000000;
+	background-color: #000000;
 	border-radius: 2px;
 	font-size: 10px;
 	padding: 5px;
 	cursor: pointer;
 	position: absolute;
-	top: 30px;
-    margin-left: 23px;
+	z-index: 1;
+	margin-top: -110px;
+	margin-left: 23px;
 }
-#moveIcon{
-position: absolute;
-z-index: 1;
-margin-left: 45px;
-margin-top: 13px;
+
+#moveIcon {
+	position: absolute;
+	z-index: 1;
+	margin-left: 45px;
+	margin-top: 13px;
 }
 
 h1 {
@@ -324,43 +330,38 @@ h2 {
 	font-size: 30px;
 	color: #1D6154;
 }
-/*modale addwork */
-.modal-addwork{
 
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgb(0, 0, 0);
-	background-color: rgba(0, 0, 0, 0.5);
-}
-h3{
+/*modale addwork */
+
+h3 {
 	font-size: 26px;
 	text-align: center;
 	padding: 10px;
 }
-#img-container{
+
+
+#img-container {
 	margin-top: 30px;
 	width: 420px;
 	height: 199px;
 	border-radius: 3px;
-	border:#CBD6DC;
-    background-color: #E8F1F6;
+	border: #CBD6DC;
+	background-color: #E8F1F6;
 	padding-bottom: 11px;
 	position: relative;
 }
-#img-container label{
-	display:flex;
-	justify-content: center;
+
+#img-container label {
+	margin-left: 110px;
 	font-family: 'Syne';
 	color: #306685;
 	background-color: #CBD6DC;
-	padding: 10px 33px; 
-	border-radius: 50px; 
-	
+	padding: 10px 33px;
+	border-radius: 50px;
+
 }
 
-#img-container .fa-image{
+#img-container .fa-image {
 	display: flex;
 	justify-content: center;
 	color: #B9C5CC;
@@ -369,11 +370,12 @@ h3{
 	margin-bottom: 20px;
 }
 
-#add-imgbutton{
+#add-imgbutton {
 	display: none;
 }
-#img-container p{
-	margin-top: 15px;
+
+#img-container p {
+	margin-top: 25px;
 	text-align: center;
 }
 
@@ -381,8 +383,9 @@ h3{
 	display: flex;
 	flex-direction: column;
 }
-.input-title-category input, 
-.input-title-category select{
+
+.input-title-category input,
+.input-title-category select {
 	width: 65%;
 	height: 51px;
 	background: #FFFFFF;
@@ -390,7 +393,7 @@ h3{
 	border: none;
 }
 
-.img-preview{
+.img-preview {
 	width: 129px;
 	height: 180px;
 	object-fit: cover;
@@ -401,22 +404,28 @@ h3{
 	left: 0;
 	right: 0;
 }
-#title-img{
+
+#title-img {
 	width: 420px;
 	height: 51px;
 }
-#category-option{
+
+#category-option {
 	width: 420px;
 	height: 51px;
 }
-.modal-addwork, label{
-	padding:10px;
+
+.modal-addwork,
+label {
+	padding: 10px;
 }
-form hr{
+
+form hr {
 	margin-top: 40px;
-	border:1px solid #B3B3B3;	
+	border: 1px solid #B3B3B3;
 }
-#submit-work{
+
+#submit-work {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -430,6 +439,10 @@ form hr{
 	border: none;
 	margin-bottom: 4%;
 }
+#submit-work:active {
+	background-color: #1D6154;
+}
+
 /* Modifier + icone a coté du H2 Mes projets*/
 .projectandMod {
 	display: flex;

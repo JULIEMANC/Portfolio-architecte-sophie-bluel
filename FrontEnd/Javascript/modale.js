@@ -1,287 +1,237 @@
 
-// car si on n'appuie pas dessus elle ne s'affaiche 
-let modal = null
-// recuperation div projectandMod
-const projectandMod = document.querySelector(".projectandMod")
+// // car si on n'appuie pas dessus elle ne s'affiche 
+// let modal = null
+// let modalAddwork = null
+
+// //recuperation de la du token de la session storage 
+// let token = sessionStorage.token
+
+// // recuperation div projectandMod
+// const projectandMod = document.querySelector(".projectandMod")
 
 // recuperer la modal
-const modal1 = document.getElementById("modal1")
+// const modal1 = document.getElementById("modal1")
 
-// recuperation de la div qui accueille les photos 
-const gallery = document.querySelector(".galleryPhoto")
+// // recuperation de la div qui accueille les photos 
+// const gallery = document.querySelector(".galleryPhoto")
 
-
-// Récupérer le formulaire et le bouton submit
-const form = document.getElementById("modalAddwork");
-
+// // Récupérer le formulaire et le bouton submit
+// const form = document.getElementById("modalAddwork");
+// const imgButton = document.getElementById("add-imgbutton")
 
 /*On ouvre la modal */
-export function setupModal(){
-  const openModal = function (e) {
-	 // MODIF : il faut mettre les 2 fonction close et stop en haut, sinon elle n'existe pas quand tu t'en servira
-    /*Pour fermer boite modal avec button */
-    const closeModal = function (e) {
-      if (modal == null) return
-      e.preventDefault()
-      modal.style.display = "none"
-    }
+// export function setupModal() {
+//   const openModal = function (e) {
 
-    /* Pour pas que la boite se ferme si on appuie dessus hors le button */
-    const stopPropagation = function (e) {
-      e.stopPropagation()
-    }
-    
-    e.preventDefault()
-    
-    const target = document.querySelector(e.target.getAttribute('href'))
-    target.style.display = null 
-  
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('arria-modal', 'true')
-  
-    modal = target
+//     /*Pour fermer boite modal avec button */
+//     const closeModal = function (e) {
+//       if (modal == null) return
+//       e.preventDefault()
+//       modal.style.display = "none"
+//     }
 
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-  }
-  // sinon tu vas créer une boucle infini, car la on récupére les modal et on leur donne le open en listener, donc faut pas etre dans le open 
-  const modals = document.querySelectorAll(".js-modal")
-  modals.forEach(a => {
-    a.addEventListener("click", openModal)
-  })
-}
+//     /* Pour pas que la boite se ferme si on appuie dessus hors le button */
+//     const stopPropagation = function (e) {
+//       e.stopPropagation()
+//     }
+//     e.preventDefault()
 
+//     // recupere href modifier qui ouvre la modal 
+//     const target = document.querySelector(e.target.getAttribute('href'))
+//     target.style.display = null
 
-// // Fonction pour supprimer les travaux
-function DeleteWork(event) {
-  DeleteWork(this.dataset.id);
-} 
+//     target.removeAttribute('aria-hidden')
+//     target.setAttribute('arria-modal', 'true')
+
+//     modal = target
+
+//     modal.addEventListener('click', closeModal)
+//     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
+//     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+//   }
+//   // sinon créer une boucle infini, car la on récupére les modal et on leur donne le open en listener, donc faut pas etre dans le open 
+//   const modals = document.querySelectorAll(".js-modal")
+//   modals.forEach(a => {
+//     a.addEventListener("click", openModal)
+//   })
+// }
+
+// // Fonction pour actualiser la page
+// function refreshPage() {
+//   const mainGallery = document.querySelector('.gallery');
+//   mainGallery.innerHTML = '';
+//   loadGallery(mainGallery);
+// }
 
 
 // // Récupération des projets via l'API
-export function display(){
+// export async function displayModal() {
 
-fetch("http://localhost:5678/api/works")
-  .then(response => response.json())
-  .then(data => {
-    for (let i = 0; i < data.length; i++) { /*(const work of allWorks) {let allWorks = add(work) */
-      let figure = document.createElement("figure") // nous avons effacer et la nous recreons les img and comment
-      let img = document.createElement("img")
-      let deleteIcon = document.createElement("i")
-      deleteIcon.className = "deleteIcon" // creation de licone poubelle via ici 
-      let figcaption = document.createElement("figcaption")
-
-
-      img.src = data[i].imageUrl;
-      img.alt = data[i].title;
-
-      figcaption.textContent = "éditer"; // commentaire sous img editer
-      deleteIcon.classList.add("fa-solid", "fa-trash-can", "delete-icon") // src icone
-
-      // deleteIcon.addEventListener ("click", (event) => {  // on ecoute le clique sur icone
-      // // console.log( deleteIcon,"ok")
-      // event.preventDefault() 
-
-      // récuperation de l'id du work cliqué via poubelle
-    // deleteIcon.setAttribute("data-id", data[i].id)
-    // console.log("deleteIcon",deleteIcon) // on voit mon console+data-id de limage
-    //  const workId = deleteIcon.dataset.id
-  // const authentificationToken  = sessionStorage.getItem('authentificationToken')
-  // if (!workId){
-  //   console.error ("l'identifiant de l'image n'est pas defini.")
-  //   return;
-  // }
-  //  try {
-  //   await deleteIcon(workId, authentificationToken)
-  // console.log('image supprimée avec succes ')
-  //supprime image dans le dom 
-  //event.target.remove()
-  //  } catch (error) {
-   // console.log(error)
-  //}
+//   fetch("http://localhost:5678/api/works")
+//     .then(response => response.json())
+//     .then(data => {
+//       for (let i = 0; i < data.length; i++) { /*(const work of allWorks) {let allWorks = add(work) */
+//         let figure = document.createElement("figure") // nous avons effacer et la nous recreons les img and comment
+//         let img = document.createElement("img")
+//         let deleteIcon = document.createElement("i")
+//         deleteIcon.className = "deleteIcon" // creation de l'icone poubelle 
+//         let figcaption = document.createElement("figcaption")
 
 
-// //  //creation d'une fonction pour supprimer l'image sur laquelle etait la pbelle cliqué
-//  function DeleteWork(event){ 
-//  const DeleteWork=document.querySelectorAll("deleteIcon") //recup tout les icones
-//  let figure = this.parent
+//         img.src = data[i].imageUrl
+//         img.alt = data[i].title
 
-//}
+
+//         figcaption.textContent = "éditer"// commentaire sous img editer
+//         deleteIcon.classList.add("fa-solid", "fa-trash-can", "delete-icon") // src icone
+//         deleteIcon.dataset.id = data[i].id
+//         // ajout des parents des elements crées
+//         figcaption.appendChild(deleteIcon)
+//         figure.appendChild(img)
+//         figure.appendChild(figcaption)
+//         figure.classList.add("figure-modal-add")
+//         gallery.appendChild(figure)
+
+        /*deleteIcon.addEventListener("click", (event) => {      // on ecoute le clique sur icone
+          event.preventDefault()
+
+          //récuperation de l'id du work cliqué via poubelle
+          deleteIcon.setAttribute("data-id", data[i].id)
+          const workId = event.target.dataset.id
+          //console.log("deleteICON",deleteIcon)  // on voit recupere l'ID au click
+
+        })*/
+      // }
 
 
 
-// deleteIcon.classList.remove("workId")
-//  }
+      // Fonction pour suppression des projets
+      async function deleteWork(event) {
+        console.log(event, "deleteWork")
 
-// ajout des parents des elements crées
-      figcaption.appendChild(deleteIcon)
-      figure.appendChild(img)
-      figure.appendChild(figcaption)
-      figure.classList.add("figure-modal-add")
+        event.preventDefault()
 
-      gallery.appendChild(figure)
-    }
-}
-  )
+        // if (event.target.classList.contains('deleteIcon')) {
+        //   // let token = document.sessionStorage.getItem('token')
+        //   console.log(sessionStorage.getItem('token'))  
 
-  // .catch(error => console.error(error))
+        const response = await fetch("http://localhost:5678/api/works/${workId}", {
+          method: 'DELETE',
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sessionStorage.getItem('token')}` // declarer en haut de page 
+          }
+        })
+        if (response.ok) {
+
+          //  if (confirm("Voulez-vous supprimer l'image?") == true) {
+          event.target.parentElement.remove() //suppression img
+          //     document.querySelector(".deleteIcon").click()
+          //   }
+          // } else {
+          //   console.log("Une erreur s'est produite lors de la suppression du projet.")
+        }
+      }
+
+//     })
+// }
+//  )
+
+// }
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+// // // // MODAL ADDWORK//  
+export function setUpModalAddWork() {
+  //récuperation du bouton  modal 1 à addwork
+  const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
+
+  // //ajout d'un evenement click au btn ajouter photo modal 1 qui ouvre la 2
+  buttonAddPhotos.addEventListener("click", () => {
+    modalAddwork.style.display = "grid" //apparaitre modaladdWork
+    modal1.style.display = "none"//disparaitre modal 1 au click de la seconde
+  })
+
+  // Récupérer la modal-addwork
+  const modalAddwork = document.querySelector(".modal-addwork");
+
+  // recuperer fleche retour 
+  const backArrow = document.querySelector(".fa-solid.fa-arrow-left")
+
+  //ajout element click a la fleche retour
+  backArrow.addEventListener("click", function () {
+    modalAddwork.style.display = "none" //masquer modalAddwork
+    modal1.style.display = "grid"
+
+
+  })
+
+  //recuperation croix close modalAddwork
+  const closeIcon = document.querySelector("#close2")
+
+  //ajout dun listener sur le bouton pr fermer la modal
+  closeIcon.addEventListener("click", function () {
+    modalAddwork.style.display = "none"
+
+
+    // //Reinitialiser le champs du formulaire
+    // document.getElementById("form-addWork").reset()
+
   }
+  )
+  // //clique a lexterieur modal, la ferme 
+  // const stopPropagation = function (e) {
+  //   e.stopPropagation()
+  // }
+  // e.preventDefault()
 
-//   )}
-// export function DeleteWork(event) {
-//   const DeleteWork=document.querySelectorAll("deleteIcon")
+  // modalAddwork.getElementById('.addWork').addEventListener('click', stopPropagation)
+}
 
-// //Suppression de la figure
-//   let figure = this.parentNode.parentNode// on ele recup via les parents 
-//   figure.parentNode.removeChild(figure)
-//   const figureMainGallery = document.querySelector('[data-id="' + this.dataset.id + '"]')
-//   figureMainGallery.remove() //on supprime via la gallerie via datasetid la figure
+//fonction qui affiche la premiere modale
+// affichage uniquement, pas d'eventListener
+export async function functionWithWorks(works){
 
-// // delete de l'image sur l'api
-//  const deleteIcon = [...document.querySelectorAll(".deleteIcon")]
-//    let token = sessionStorage.getItem("token")
-//       fetch(`http://localhost:5678/api/works/${workId}`, {
-//         method: "DELETE",
-//         headers: {
-//           "Authorization": `bearer ${token}`
-//         }
-//       })
-//         .then(function (response) {
-//           if (response.ok) {
-//             updateAfterDelete(workId)
-//             displayWorks() // affiche projet mis a jour dans page accueil 
-//           } else {
-//             console.log("Erreur lors de la suppression de l/'élément ")
-//           }
-//         })
-//         .catch(function (error) {
-//           console.log("Erreur lors de la suppresion de l/'élement", error)
-//         })
-// //  }
+}
 
-// }
-
-// // //pr que la poubelle puisse delete en fonction d'un click (appel a l'api)
-// // function deleteWork(id){
-//   // const allWorks=document.querySelector(".allWorks")
-//   // for (const work of allWorks){
-//   //   if(work.id)allWorks.remove()
-//   //   displayWorks()
- 
-    
-// //   VERIFIER OK  
-// récuperation du bouton ajouter photo de la modal 1
-// const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
-
-// // //ajout d'un evenement click au btn ajouter photo modal 1
-// buttonAddPhotos.addEventListener("click", () => {
-//   modalAddwork.style.display = "block"
-//   modal1.style.display = "none"
-// })
+export async function categorySelect() {
+  // //on recupere la liste déroulante de catégorie option 
+  const categorySelect = document.getElementById("category-option")
 
 
-
-// // // MODAL 2//  
-
-// // Fonction pour réinitialiser le formulaire
-// function resetForm() {
-//   let imgPreview = document.querySelector(".img");
-//   if (imgPreview !== null) {
-//     imgPreview.remove();
-//   }
-//   document.getElementById("input-container").style.display = "";
-//   document.querySelector("#img-container p").style.display = "";
-//   form.reset();
-// }
-
-// // Récupérer la modal-addwork
-// const modalAddwork = document.querySelector(".modal-addwork");
-
-// // recuperer fleche retour 
-// const backArrow = document.querySelector(".fa-solid.fa-arrow-left")
-
-// //ajout element click a la fleche retour
-// backArrow.addEventListener("click", function () {
-//   modalAddwork.style.display = "none" //masquer modalAddwork
-//   modal1.style.display = "null" //affiche modal1 apparait sur coté qd on fait retour 
-// })
-
-// //recuperation croix close modalAddwork
-// const closeIcon = document.querySelector("#close2")
-
-// //ajout dun listener sur le bouton pr fermer la modal
-// closeIcon.addEventListener("click", function () {
-//   modalAddwork.style.display = "none"
-//   //Reinitialiser le champs du formulaire
-//   // document.getElementById("form-addWork").reset()
-// })
-
-// VERIFIER OK 
+  // //récupere les categories depuis l'api
+  await fetch("http://localhost:5678/api/categories")
+    .then(response => response.json())
+    .then(data => {
+      //parcourir les catégories et créer option pr chacunes d'elles  
+      // for(let option of category-option){
+      // for (let i=0; i<4;i++ ) {   
+      for (let i = 0; i < data.length; i++) {
+        let option = document.createElement("option")
+        option.value = data[i].id
+        option.text = data[i].name
+        categorySelect.appendChild(option)
+      }
+    })
+    .catch(error => console.error(error))
 
 
-// //on recupere la liste déroulante de catégorie option 
-// const categorySelect=document.getElementById("category-option")
+  // Récupére les éléments du formulaire html pour télécharger une image
+  const titleInput = document.getElementById("title-img")
+  const imageInput = document.getElementById("add-imgbutton")
 
-// //récupere les categories depuis l'api
-// fetch ("http://localhost:5678/api/categories")
-// .then (response => response.json())
-// .then (data =>{ 
-//   //parcourir les catégories et créer option pr chacune delles 
-//   for(let i=0; i<data.length; i++){
-//     let option = document.createElement("option")
-//     option.value= data[i].id;
-//     option.text=data[i].name;
-//     categorySelect.appendChild(option)
-//   }
-// })
-// .catch(error=> console.error(error))
+  // //ecoute du click sur le bouton ajout photo 
+  imgButton.addEventListener("change", () => {
+    const file = imgButton.files[0]
+    const reader = new FileReader()
+    // reader.readAsDataURL(file)
 
-// // Récupére les éléments du formulaire
-// const titleInput = document.getElementById("title-img");
-// const imageInput = document.getElementById("add-imgbutton");
+    // Vérifier le format et la taille du fichier
+    const allowedFormats = ["image/jpeg", "image/png"]
+    const maxSize = 4 * 1024 * 1024;
 
-// //ecoute du click sur le bouton ajout photo
-// imgButton.addEventListener("change", ()=>{
-//   const file=this.files[0];
-//   const reader=new FileReader();
-// // })
-  
-// // // Vérifier le format et la taille du fichier
-// //   const allowedFormats = ["image/jpeg", "image/png"];
-// //   const maxSize = 4 * 1024 * 1024; 
-
-// //message derreur si l'image n'est pas de la bonne taille 
-//  function errorMessage (){
-// if (allowedFormats.includes(file.type)&& file.size <= maxSize){
-//   reader.addEventListener("load",function(){
-//     const imageUrl=reader.result
-//     const imgPreview = document.createElement("img")
-//     imgPreview.src=imageUrl
-//     imgPreview.classList.add("img-preview")
+  })
 
 
-//     //masquer les autres element pour afficher limage selectionnée
-//     imgPreview.style.display="block"
-//     imageInput.style.display="none"
-//     document.getElementById("input-container").style.display="none"
-//     document.querySelector("#img-container p").style.display="none"
-//     document.getElementById("img-container").appendChild(imgPreview) // on lui donne un parent car on l'a creer 
-//   })
-// reader.readAsDataUrl(file)
-// }else {
-//   //affiche le message derreur si pas bonne taille ou bon format 
-//   let showErreurMessage=document.createElement("span")
-//   showErreurMessage.innerText= "Veuillez sélectionner une image au format JPG ou PNG, et d'une taille maximale de 4MB."
-//   showErreurMessage.style.color="red"
-//   showErreurMessage.id=showErreurMessage
 
-//   modalAddwork.appendChild(showErreurMessage)// on lui donne un parent car on l'a creer 
-
-//   // Réinitialisation la valeur de l'input de l'image
-//   imageInput.value=""
-// }
-// }
-
-
-// // Fonction pour créer les éléments à ajouter dans le DOM
+}

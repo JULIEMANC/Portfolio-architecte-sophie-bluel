@@ -13,7 +13,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="./javascript/script.js" defer></script>
-	<script type="module" src="./Javascript/modale.js" defer></script>
+
 </head>
 
 <body>
@@ -70,7 +70,7 @@
 						<h3 id="titlemodal">Galerie photo</h3>
 
 						<!-- Gallery photo dans modal-->
-						<div class="galleryPhoto">
+						<div class="galleryModal">
 							<i id=moveIcon class="fa-solid fa-arrows-up-down-left-right"></i>
 						</div>
 
@@ -88,8 +88,7 @@
                 <!--Modal addwork -->
 				<a href="#modal-addwork" class="js-modal" id="buttonAddPhotos"style="display: none;"></a>
 
-			<aside id="modal-addwork"class="modal-addwork" role="dialog" aria-hidden="true" aria-describedby="titlemodal"
-				style="display: none;">
+			<aside id="modal-addwork"class="modal-addwork" role="dialog" aria-hidden="true" aria-describedby="titlemodal" style="display: none;">
 
 				<div id="addWork" class="modal-wrapper js-modal-stop">
 
@@ -108,7 +107,7 @@
 							<label id="input-container" for="add-imgbutton"><span class="addPhoto">+ Ajouter photo</span>
 								<input type="file" id="add-imgbutton" accept=".png, .jpg">
 							</label>
-							<p>jpg, png: 4mo max</p>
+							<p>jpg, png : 4mo max</p>
 						</div>
 						<div class="input-title-category">
 							<div id="info-title" class="input-title-category">
@@ -126,41 +125,7 @@
 						<input type="submit" name="submit-work" id="submit-work" value="Valider">
 					</form>
 				</div>
-				
 				</aside> 
-
-
-				<!-- modale test
-				<aside class="modal-addwork" class="js-modal">
-					<span class="icons">
-						<i class="fa-solid fa-arrow-left "></i>
-						<div id="close2" class="js-modal-close"><i class="fa-solid fa-xmark"></i></div>
-					</span>
-
-					<h3>Ajout photo</h3>
-
-					<form id="form-addwork" action="#" method="post" enctype="multipart/form-data">
-						<div id="img-container">
-							<i class="fa-solid fa-image"></i>
-							<label id="input-container" for="add-imgbutton"><span class="addPhoto">+ Ajouter photo</span>
-								<input type="file" id="add-imgbutton" accept=".png, .jpg">
-							</label>
-							<p>jpg, png: 4mo max</p>
-						</div>
-						<div class="input-title-category">
-							<div id="info-title" class="input-title-category">
-								<label for="title-img">Titre</label>
-								<input type="text" id="title-img">
-							</div>
-							<label for="category-option">Catégorie</label>
-							<select id="category-option">
-								<option></option>
-							</select>
-						</div>
-						<hr>
-						<input type="submit" name="submit-work" id="submit-work" value="Valider">
-					</form>
-				</aside> -->
 			</div>
 			<!--FIN MODALE-->
 
