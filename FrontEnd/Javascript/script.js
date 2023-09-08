@@ -40,12 +40,12 @@ async function init() {
     displayButton()
     isAdmin()
     setupModal()
-    displayModal()  
+    displayModal()
     setDeleteListener()
     // categorySelect()
     //setUpModalAddWork()
     //deleteWork()
-   
+
 }
 init()
 
@@ -221,56 +221,47 @@ async function displayModal() {
         /* deletIcon*/
         let deleteIcon = document.createElement("i")
         deleteIcon.classList.add("fa-solid", "fa-trash-can", "delete-icon") // src icone
-        deleteIcon.dataset.id = work
+        deleteIcon.dataset.id = work.id
 
         // ajout des parents aux nvx éléments
         figcaption.appendChild(deleteIcon)
         figure.appendChild(img)
         figure.appendChild(figcaption)
         figure.classList.add("figure-modal-add")
+        figure.dataset.figureModal = work.id
         galleryModal.appendChild(figure)
     }
 }
 
 /* delete icone poubelle dans le back */
 function setDeleteListener() {
-	const deleteIcon = document.querySelectorAll(".delete-icon")
-	for (const icon of deleteIcon) {
-		icon.addEventListener("click", async (e) => {
-			const id = e.target.dataset.id
-			const tryDelete = await deleteWork(id)
-			if (tryDelete) {
-				for (const work of allWorks) {
-					if (work.id == id) {
-						allWorks.remove(work)
-						break
-					}
-				}
-				 displayWorks()
-				displayModal()
-			}
-		})
-	}
-}
-//fonction qui va faire les eventListener delete de la modal et modifié allWork a la fin
-async function deleteWork(id) {
-	const response = await fetch("http://localhost:5678/api/works/${workId}", {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${sessionStorage.getItem('token')}` // declarer en haut de page 
-      }
-    })
-	if (response.ok) {
-		return true
-	} else {
-		return false
-	}
-}
- 
+    const deleteIcon = document.querySelectorAll(".delete-icon")
+    for (const icon of deleteIcon) {
 
+        icon.addEventListener("click", async (e) => {
+            const id = e.target.dataset.id;
+            const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "accept": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem('token')}` // declarer en haut de page 
+                }
+            });
+            if (response.ok) {
+                console.log(`image deleted successfully`)
+                document.querySelector(`[data-figure-modal="${id}"]`).remove()
 
-// // // // MODAL ADDWORK//  
+            } else {
+                throw new Error(`Let work response was not ok `);
+            }
+
+        })
+    }
+}
+
+// // // // MODAL ADDWORK//  function setUpModalAddWork() {
+//const openADDmodal=function (e) {
+
 // export function setUpModalAddWork() {
 //     //récuperation du bouton  modal 1 à addwork
 //     const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
@@ -291,8 +282,6 @@ async function deleteWork(id) {
 //     backArrow.addEventListener("click", function () {
 //       modalAddwork.style.display = "none" //masquer modalAddwork
 //       modal1.style.display = "grid"
-
-
 //     })
 
 //     //recuperation croix close modalAddwork

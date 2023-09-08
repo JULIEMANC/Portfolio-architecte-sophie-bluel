@@ -141,44 +141,44 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-// // // // MODAL ADDWORK//  
-export function setUpModalAddWork() {
-  //récuperation du bouton  modal 1 à addwork
-  const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
+// // // // // MODAL ADDWORK//  
+// export function setUpModalAddWork() {
+//   //récuperation du bouton  modal 1 à addwork
+//   const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
 
-  // //ajout d'un evenement click au btn ajouter photo modal 1 qui ouvre la 2
-  buttonAddPhotos.addEventListener("click", () => {
-    modalAddwork.style.display = "grid" //apparaitre modaladdWork
-    modal1.style.display = "none"//disparaitre modal 1 au click de la seconde
-  })
+//   // //ajout d'un evenement click au btn ajouter photo modal 1 qui ouvre la 2
+//   buttonAddPhotos.addEventListener("click", () => {
+//     modalAddwork.style.display = "grid" //apparaitre modaladdWork
+//     modal1.style.display = "none"//disparaitre modal 1 au click de la seconde
+//   })
 
-  // Récupérer la modal-addwork
-  const modalAddwork = document.querySelector(".modal-addwork");
+//   // Récupérer la modal-addwork
+//   const modalAddwork = document.querySelector(".modal-addwork");
 
-  // recuperer fleche retour 
-  const backArrow = document.querySelector(".fa-solid.fa-arrow-left")
+//   // recuperer fleche retour 
+//   const backArrow = document.querySelector(".fa-solid.fa-arrow-left")
 
-  //ajout element click a la fleche retour
-  backArrow.addEventListener("click", function () {
-    modalAddwork.style.display = "none" //masquer modalAddwork
-    modal1.style.display = "grid"
-
-
-  })
-
-  //recuperation croix close modalAddwork
-  const closeIcon = document.querySelector("#close2")
-
-  //ajout dun listener sur le bouton pr fermer la modal
-  closeIcon.addEventListener("click", function () {
-    modalAddwork.style.display = "none"
+//   //ajout element click a la fleche retour
+//   backArrow.addEventListener("click", function () {
+//     modalAddwork.style.display = "none" //masquer modalAddwork
+//     modal1.style.display = "grid"
 
 
-    // //Reinitialiser le champs du formulaire
-    // document.getElementById("form-addWork").reset()
+//   })
 
-  }
-  )
+//   //recuperation croix close modalAddwork
+//   const closeIcon = document.querySelector("#close2")
+
+//   //ajout dun listener sur le bouton pr fermer la modal
+//   closeIcon.addEventListener("click", function () {
+//     modalAddwork.style.display = "none"
+
+
+//     // //Reinitialiser le champs du formulaire
+//     // document.getElementById("form-addWork").reset()
+
+//   }
+//   )
   // //clique a lexterieur modal, la ferme 
   // const stopPropagation = function (e) {
   //   e.stopPropagation()
