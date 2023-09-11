@@ -103,12 +103,21 @@
 					<div id="btnMenuShow">
 
 						<div id="img-container">
-							<i class="fa-solid fa-image"></i>
-							<label id="input-container" for="add-imgbutton"><span class="addPhoto">+ Ajouter photo</span>
-								<input type="file" id="add-imgbutton" accept=".png, .jpg">
+							<div class="before-img-select">
+								<i class="fa-solid fa-image"></i>
+							<label id="input-container" class="input-container" for="add-imgbutton">
+								
+								<input type="file" id="add-imgbutton" accept=".png, .jpg" >
+								<span class="addPhoto">+ Ajouter photo</span>
 							</label>
 							<p>jpg, png : 4mo max</p>
+
+							</div>
+							<div class="img-select" >
+								<img id="preview-image" width="120" height="193">
+							</div>
 						</div>
+
 						<div class="input-title-category">
 							<div id="info-title" class="input-title-category">
 								<label for="title-img">Titre</label>

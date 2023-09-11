@@ -15,8 +15,15 @@ const btnfiltres = document.querySelector(".btnfiltres")
 const projectandMod = document.querySelector(".projectandMod")
 const modal1 = document.getElementById("modal1")
 const galleryModal = document.querySelector(".galleryModal")
-// const form = document.getElementById("modalAddwork")
-// const imgButton = document.getElementById("add-imgbutton")
+const form = document.getElementById("modalAddwork")
+const previewImage = document.getElementById("preview-image")
+const titleInput = document.getElementById("title-img")
+const imageInput = document.getElementById("add-imgbutton")
+const validFile = document.getElementById("input-container")
+const submitWork = document.getElementById("submit-work")
+const categoryInput = document.getElementById("category-option")
+let messageErrorTitle = document.createElement("span")
+
 /*
         INIT
 */
@@ -42,10 +49,13 @@ async function init() {
     setupModal()
     displayModal()
     setDeleteListener()
-    // categorySelect()
-    //setUpModalAddWork()
-    //deleteWork()
-
+    categorySelect()
+    setUpModalAddWork()
+    checkInput()
+  showMessage()
+    createGalleryItem()
+    //addNewImgData()
+    //messageError()
 }
 init()
 
@@ -69,8 +79,6 @@ async function getDatabaseInfo(type) {
     }
 }
 
-
-/*
 /*
         GALLERY FONCTION
         (toutes les fonctions qui concernent la gallerie principale (hors modal) et les filtres)
@@ -84,7 +92,7 @@ function displayWorks(filtre = "0") {
     //Triage des filtres en fonction du categoryID ( si filtres est different à 0 alirs on prends categoryId qui est = aux autres filtres.
     let selectedWorks = allWorks
     if (filtre != "0") {
-        console.log(selectedWorks);
+        console.log(selectedWorks)
         selectedWorks = [...selectedWorks].filter((work) => work.categoryId == filtre)
     }
     //Création de la gallerie via JVS => html ( juste src et figcaption necessaire = figure)
@@ -169,7 +177,6 @@ function isAdmin() {
         MODAL FONCTION
         fonciton qui gere l'affichage des modales
 */
-
 function setupModal() {
     const openModal = function (e) {
 
@@ -205,7 +212,6 @@ function setupModal() {
         a.addEventListener("click", openModal)
     })
 }
-
 /* cration de la gallery de la modal 1 */
 /* MENTOR : si je deplace dans API fonction en haut ca fait tout bugger */
 async function displayModal() {
@@ -232,7 +238,6 @@ async function displayModal() {
         galleryModal.appendChild(figure)
     }
 }
-
 /* delete icone poubelle dans le back */
 function setDeleteListener() {
     const deleteIcon = document.querySelectorAll(".delete-icon")
@@ -246,58 +251,218 @@ function setDeleteListener() {
                     "accept": "application/json",
                     "Authorization": `Bearer ${sessionStorage.getItem('token')}` // declarer en haut de page 
                 }
-            });
+            })
             if (response.ok) {
-                console.log(`image deleted successfully`)
+                console.log(`image supprimé`)
                 document.querySelector(`[data-figure-modal="${id}"]`).remove()
 
             } else {
-                throw new Error(`Let work response was not ok `);
+                throw new Error(`Impossible de supprimer l'image `)
             }
 
         })
     }
 }
+// // // // MODAL ADDWORK//  
 
-// // // // MODAL ADDWORK//  function setUpModalAddWork() {
-//const openADDmodal=function (e) {
-
-// export function setUpModalAddWork() {
-//     //récuperation du bouton  modal 1 à addwork
-//     const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
-
-//     // //ajout d'un evenement click au btn ajouter photo modal 1 qui ouvre la 2
-//     buttonAddPhotos.addEventListener("click", () => {
-//       modalAddwork.style.display = "grid" //apparaitre modaladdWork
-//       modal1.style.display = "none"//disparaitre modal 1 au click de la seconde
-//     })
-
-//     // Récupérer la modal-addwork
-//     const modalAddwork = document.querySelector(".modal-addwork");
-
-//     // recuperer fleche retour 
-//     const backArrow = document.querySelector(".fa-solid.fa-arrow-left")
-
-//     //ajout element click a la fleche retour
-//     backArrow.addEventListener("click", function () {
-//       modalAddwork.style.display = "none" //masquer modalAddwork
-//       modal1.style.display = "grid"
-//     })
-
-//     //recuperation croix close modalAddwork
-//     const closeIcon = document.querySelector("#close2")
-
-//     //ajout dun listener sur le bouton pr fermer la modal
-//     closeIcon.addEventListener("click", function () {
-//       modalAddwork.style.display = "none"
-
-
-//       // //Reinitialiser le champs du formulaire
-//       // document.getElementById("form-addWork").reset()
-
+// const openAddModal=function(e) {
+//  const stopPropagation = function (e) {
+//         e.stopPropagation()
 //     }
-//     )}
+//     e.preventDefault()
+// }
+function setUpModalAddWork() {
+    //récuperation du bouton  modal 1 à modal addwork
+    const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
+    //ajout d'un evenement click au btn ajouter photo modal 1 qui ouvre la 2
+    buttonAddPhotos.addEventListener("click", () => {
+        modalAddwork.style.display = "grid" //apparaitre modaladdWork
+        modal1.style.display = "none"//disparaitre modal 1 au click de la seconde
+    })
+    // Récupérer la modal-addwork
+    const modalAddwork = document.querySelector(".modal-addwork");
 
+    // recuperer fleche retour 
+    const backArrow = document.querySelector(".fa-solid.fa-arrow-left")
+
+    //ajout element click a la fleche retour
+    backArrow.addEventListener("click", function () {
+        modalAddwork.style.display = "none" //masquer modalAddwork
+        modal1.style.display = "grid"
+    })
+    //recuperation croix close modalAddwork
+    const closeIcon = document.querySelector("#close2")
+
+    //ajout dun listener sur le bouton pr fermer la modal
+    closeIcon.addEventListener("click", function () {
+        modalAddwork.style.display = "none"
+        // //Reinitialiser le champs du formulaire
+        // document.getElementById("form-addWork").reset()
+
+    }
+    )
+}
+//on recupere la liste déroulante de catégorie option 
+async function categorySelect() {
+    const categorySelect = document.getElementById("category-option")
+    //récupere les categories depuis l'api
+    await fetch("http://localhost:5678/api/categories")
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                let option = document.createElement("option")
+                option.value = data[i].id
+                option.text = data[i].name
+                categorySelect.appendChild(option)
+            }
+        })
+        .catch(error => console.error(error))
+}
+
+// //Ecoute du click sur le bouton ajout photo 
+function previewSelectedImage() {
+    const file = imageInput.files[0]
+    if (file) {
+        // console.log(previewImage, "ok")
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function (e) {
+            previewImage.src = e.target.result
+        }
+        const beforeImg = document.querySelector(".before-img-select")
+        // console.log(beforeImg, "beforeImg")
+        beforeImg.style.display = "none"
+
+        const imgSelect = document.querySelector(".img-select")
+        imgSelect.style.display = "grid"
+    }
+}
+
+//   // Afficher un message d'erreur
+//   let showErreurMessage = document.createElement("span")
+//   showErreurMessage.innerText = "Veuillez sélectionner une image au format JPG ou PNG, et d'une taille maximale de 4MB."
+//   showErreurMessage.style.color = "red"
+//   showErreurMessage.id = "showErreurMessage"
+// //   form.appendChild(showErreurMessage)
+
+//Fonction pour creer les elements dans le DOM
+function createGalleryItem(title, imageUrl) {
+    const figure = document.createElement("figure")
+    const img = document.createElement("img")
+    const figcaption = document.createElement("figcaption")
+    const deleteIcon = document.createElement("i")
+    const galleryModal = document.getElementById("galleryModal")
+
+    img.src = imageUrl
+    img.alt = title
+    deleteIcon.classList.add("fa-solid", "fa-trash-can", "delete-icon")
+    deleteIcon.addEventListener("click", setDeleteListener)
+
+    figcaption.textContent = "éditer"
+    figure.classList.add("figure-modal-add")
+
+    figcaption.appendChild(deleteIcon)
+    figure.appendChild(img)
+    figure.appendChild(figcaption)
+    gallery.appendChild(figure)
+}
+
+function checkInput() {
+    //récuperation des elements de la modalAddWork
+    if (titleInput.value !== "" && categoryInput.value !== "" && imageInput.value !== "") {
+        // submitWork.style.color = "white"
+        submitWork.style.background = "#1D6154"
+    }
+}
+//Fonction pour affiche un message dans la modal 
+function showMessage(message, type) {
+    let messageElement = document.createElement("span")
+    messageElement.textContent = message
+    if (type === "success") {
+        messageElement.classList.add("success-message")
+    } else if (type === "delete") {
+        messageElement.classList.add("delete-message")
+    }
+    addWork.appendChild(messageElement)
+}
+ // Ajouter un événement pour gérer les messages d'erreur
+ submitWork.addEventListener("click", function (event) {
+    event.preventDefault() // Empêcher le rechargement de la page
+
+// function messageError() {
+    // Vérifier si l'image est charger
+    if (imageInput.value === "") {
+        // Créer un message d'erreur
+        let messageErrorTitle = document.createElement("span")
+        messageErrorTitle.innerText = "Veuillez mettre un image."
+        messageErrorTitle.style.color = "red"
+        messageErrorTitle.id = "messageErrorImage"
+        // Ajouter le message d'erreur au formulaire
+        addWork.appendChild(messageErrorTitle)
+    }
+    // Vérifier si le champ titre est rempli
+    if (titleInput.value === "") {
+        // Créer un message d'erreur
+        let messageErrorTitle = document.createElement("span")
+        messageErrorTitle.innerText = "Veuillez mettre un titre valide."
+        messageErrorTitle.style.color = "red"
+        messageErrorTitle.id = "messageErrorTitle"
+        addWork.appendChild(messageErrorTitle)
+    }
+    // Vérifier si la catégorie est selectionner
+    if (categoryInput.value === "") {
+        // Créer un message d'erreur
+        let messageErrorTitle = document.createElement("span")
+        messageErrorTitle.innerText = "Veuillez sélectionner une catégorie."
+        messageErrorTitle.style.color = "red"
+        messageErrorTitle.id = "messageErrorId"
+        addWork.appendChild(messageErrorTitle)
+    }
+
+// }
+//Récupérer le token depuis la sessionStorage en haut 
+//Créer les données à envoyer à l'API
+const formData = new FormData()
+formData.append("image", imageInput.files[0])
+formData.append("title", titleInput.value)
+formData.append("category", categoryInput.value)
+
+
+//function pour le fetch de la nouvelle image 
+// async function addNewImgData() {
+    //Effectuer la requête pour envoyer l'image à l'API
+ fetch("http://localhost:5678/api/works", {
+        method: "POST",
+
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        body: formData
+    })
+    // .then(response => {
+    // if (!response.ok) {
+    throw new Error("Erreur lors de l'envoi de l'image")
+    // }
+    return response.json()
+        // })
+        .then(data => {
+            // creer les elements à ajouter ds le DOM
+            createGalleryItem(titleInput.value, data.imageUrl)
+            //Réinitialiser le formulaire
+            resetForm()
+            //Masquer la modal-addwork
+            modalAddwork.style.display = "none"
+            //Afficher la modal1
+            modal1.style.display = "block"
+            //Ajouter un message de succès (compris dans la fonction plus haut )
+            showMessage("L'image a été envoyée avec succès!", "success")
+        })
+        .catch(error => {
+            console.error(error)
+        })
+}
+// }
+)
 /*  LISTERNER FONCTION
   toutes les fonction qui contiennent les eventListener
   Ecoute des filtres créer en "function" par rapport au click by Id 
@@ -316,5 +481,8 @@ function addFilterListener() {
         })
     }
 }
-
-
+imageInput.addEventListener('change', previewSelectedImage)
+  // Ajouter des écouteurs d'événements pour les champs de saisie
+  titleInput.addEventListener("change", checkInput)
+  categoryInput.addEventListener("change", checkInput)
+  imageInput.addEventListener("change", checkInput)

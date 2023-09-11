@@ -105,33 +105,33 @@
 
 
 
-      // Fonction pour suppression des projets
-      async function deleteWork(event) {
-        console.log(event, "deleteWork")
+      // // Fonction pour suppression des projets
+      // async function deleteWork(event) {
+      //   console.log(event, "deleteWork")
 
-        event.preventDefault()
+      //   event.preventDefault()
 
-        // if (event.target.classList.contains('deleteIcon')) {
-        //   // let token = document.sessionStorage.getItem('token')
-        //   console.log(sessionStorage.getItem('token'))  
+      //   // if (event.target.classList.contains('deleteIcon')) {
+      //   //   // let token = document.sessionStorage.getItem('token')
+      //   //   console.log(sessionStorage.getItem('token'))  
 
-        const response = await fetch("http://localhost:5678/api/works/${workId}", {
-          method: 'DELETE',
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${sessionStorage.getItem('token')}` // declarer en haut de page 
-          }
-        })
-        if (response.ok) {
+      //   const response = await fetch("http://localhost:5678/api/works/${workId}", {
+      //     method: 'DELETE',
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       "Authorization": `Bearer ${sessionStorage.getItem('token')}` // declarer en haut de page 
+      //     }
+      //   })
+      //   if (response.ok) {
 
-          //  if (confirm("Voulez-vous supprimer l'image?") == true) {
-          event.target.parentElement.remove() //suppression img
-          //     document.querySelector(".deleteIcon").click()
-          //   }
-          // } else {
-          //   console.log("Une erreur s'est produite lors de la suppression du projet.")
-        }
-      }
+      //     //  if (confirm("Voulez-vous supprimer l'image?") == true) {
+      //     event.target.parentElement.remove() //suppression img
+      //     //     document.querySelector(".deleteIcon").click()
+      //     //   }
+      //     // } else {
+      //     //   console.log("Une erreur s'est produite lors de la suppression du projet.")
+      //   }
+      // }
 
 //     })
 // }
@@ -186,52 +186,52 @@
   // e.preventDefault()
 
   // modalAddwork.getElementById('.addWork').addEventListener('click', stopPropagation)
-}
+// }
 
 //fonction qui affiche la premiere modale
-// affichage uniquement, pas d'eventListener
-export async function functionWithWorks(works){
+// // affichage uniquement, pas d'eventListener
+// export async function functionWithWorks(works){
 
-}
+// }
 
-export async function categorySelect() {
-  // //on recupere la liste déroulante de catégorie option 
-  const categorySelect = document.getElementById("category-option")
-
-
-  // //récupere les categories depuis l'api
-  await fetch("http://localhost:5678/api/categories")
-    .then(response => response.json())
-    .then(data => {
-      //parcourir les catégories et créer option pr chacunes d'elles  
-      // for(let option of category-option){
-      // for (let i=0; i<4;i++ ) {   
-      for (let i = 0; i < data.length; i++) {
-        let option = document.createElement("option")
-        option.value = data[i].id
-        option.text = data[i].name
-        categorySelect.appendChild(option)
-      }
-    })
-    .catch(error => console.error(error))
+// export async function categorySelect() {
+//   // //on recupere la liste déroulante de catégorie option 
+//   const categorySelect = document.getElementById("category-option")
 
 
-  // Récupére les éléments du formulaire html pour télécharger une image
-  const titleInput = document.getElementById("title-img")
-  const imageInput = document.getElementById("add-imgbutton")
+//   // //récupere les categories depuis l'api
+//   await fetch("http://localhost:5678/api/categories")
+//     .then(response => response.json())
+//     .then(data => {
+//       //parcourir les catégories et créer option pr chacunes d'elles  
+//       // for(let option of category-option){
+//       // for (let i=0; i<4;i++ ) {   
+//       for (let i = 0; i < data.length; i++) {
+//         let option = document.createElement("option")
+//         option.value = data[i].id
+//         option.text = data[i].name
+//         categorySelect.appendChild(option)
+//       }
+//     })
+//     .catch(error => console.error(error))
 
-  // //ecoute du click sur le bouton ajout photo 
-  imgButton.addEventListener("change", () => {
-    const file = imgButton.files[0]
-    const reader = new FileReader()
-    // reader.readAsDataURL(file)
 
-    // Vérifier le format et la taille du fichier
-    const allowedFormats = ["image/jpeg", "image/png"]
-    const maxSize = 4 * 1024 * 1024;
+//   // Récupére les éléments du formulaire html pour télécharger une image
+//   const titleInput = document.getElementById("title-img")
+//   const imageInput = document.getElementById("add-imgbutton")
 
-  })
+//   // //ecoute du click sur le bouton ajout photo 
+//   imgButton.addEventListener("change", () => {
+//     const file = imgButton.files[0]
+//     const reader = new FileReader()
+//     // reader.readAsDataURL(file)
+
+//     // Vérifier le format et la taille du fichier
+//     const allowedFormats = ["image/jpeg", "image/png"]
+//     const maxSize = 4 * 1024 * 1024
+
+//   })
 
 
 
-}
+// }

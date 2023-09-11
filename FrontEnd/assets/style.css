@@ -351,7 +351,15 @@ h3 {
 	position: relative;
 }
 
-#img-container label {
+
+.img-select{
+	display: none;
+	display: flex;
+	justify-content: center;
+
+}
+
+.input-container{
 	margin-left: 110px;
 	font-family: 'Syne';
 	color: #306685;
