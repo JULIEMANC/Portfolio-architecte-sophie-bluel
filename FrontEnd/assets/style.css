@@ -174,7 +174,6 @@ section {
 
 }
 
-
 .upChange {
 	width: 200px;
 	height: 35px;
@@ -219,6 +218,7 @@ section {
 	height: 750px;
 	padding: 20px;
 	background-color: white;
+	overflow-y: auto;
 
 }
 
@@ -354,7 +354,6 @@ h3 {
 
 .img-select{
 	display: none;
-	display: flex;
 	justify-content: center;
 
 }
@@ -562,7 +561,8 @@ background-color: #1D6154;
 }
 
 .gallery img {
-	width: 100%;
+	width: 310px;
+	height: 413px;
 
 }
 
