@@ -19,10 +19,13 @@ const previewImage = document.getElementById("preview-image")
 const titleInput = document.getElementById("title-img")
 const imageInput = document.getElementById("add-imgbutton")
 const validFile = document.getElementById("input-container")
-const submitWork = document.getElementById("form-addwork")
+const formAddWork = document.getElementById("form-addwork")
 const categoryInput = document.getElementById("category-option")
 let messageErrorTitle = document.createElement("span")
-const buttonValidate=document.querySelector("#submit-work")
+const buttonValidate = document.querySelector("#submit-work")
+const imgSelect = document.querySelector(".img-select")
+const omgContainer = document.querySelector('#img-container')
+let messageModal = document.getElementById("messageModal")
 /*
         INIT
 */
@@ -51,8 +54,8 @@ async function init() {
     categorySelect()
     setUpModalAddWork()
     checkInput()
-    showMessage()
-  
+    resetForm()
+
 }
 init()
 /*
@@ -146,7 +149,7 @@ function isAdmin() {
         /* bouton logout apparait*/
         let deconnexion = document.getElementById("deconnexion")
         deconnexion.style.display = null
-        deconnexion.addEventListener("click",function()  {
+        deconnexion.addEventListener("click", function () {
             sessionStorage.clear()
             window.location.reload()
         })
@@ -195,8 +198,8 @@ function setupModal() {
         modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
         modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     }
-    // sinon créer une boucle infini, car la on récupére les modal et on leur donne le open en listener, donc faut pas etre dans le open 
-    const modals = document.querySelectorAll(".js-modal") // 
+    // sinon créer une boucle infini, car la on récupére les modal et on leur donne le open en listener, donc faut pas etre dans le open
+    const modals = document.querySelectorAll(".js-modal") //
     modals.forEach(a => {
         a.addEventListener("click", openModal)
     })
@@ -228,9 +231,9 @@ async function displayModal() {
         galleryModal.appendChild(figure)
     }
     setDeleteListener()
-    }
+}
 
- /* delete icone poubelle dans le back */
+/* delete icone poubelle dans le back */
 function setDeleteListener() {
     const deleteIcon = document.querySelectorAll(".delete-icon")
     for (const icon of deleteIcon) {
@@ -241,7 +244,7 @@ function setDeleteListener() {
                 method: 'DELETE',
                 headers: {
                     "accept": "application/json",
-                    "Authorization": `Bearer ${token}` // declarer en haut de page 
+                    "Authorization": `Bearer ${token}` // declarer en haut de page
                 }
             })
             if (response.ok) {
@@ -258,16 +261,11 @@ function setDeleteListener() {
             } else {
                 throw new Error(`Impossible de supprimer l'image `)
             }
-
-        })}
-}
-// // // // MODAL ADDWORK//  
-function setUpModalAddWork() {
-    const openModal=function(e){ 
-        const stopPropagation = function (e) {
-        e.stopPropagation()
+        })
     }
-    e.preventDefault()}
+}
+// // // // MODAL ADDWORK//
+function setUpModalAddWork() {
     /*récuperation du bouton  modal 1 à modal addwork*/
     const buttonAddPhotos = document.querySelector(".buttonAddPhotos")
     /*ajout d'un evenement click au btn ajouter photo modal 1 qui ouvre la 2*/
@@ -276,33 +274,35 @@ function setUpModalAddWork() {
         modal1.style.display = "none"//disparaitre modal 1 au click de la seconde
     })
     /* Récupérer la modal-addwork*/
-    const modalAddwork = document.querySelector(".modal-addwork");
+    const modalAddwork = document.querySelector(".modal-addwork")
 
-    /* recuperer fleche retour */
+    /* Récuperer fleche retour.*/
     const backArrow = document.querySelector(".fa-solid.fa-arrow-left")
 
-    /*ajout element click a la fleche retour*/
-    backArrow.addEventListener("click", function () {
-        modalAddwork.style.display = "none" //masquer modalAddwork
+    /*Ajout element click a la fleche retour.*/
+    backArrow.addEventListener("click", function (e) {
+        e.preventDefault()
+        modalAddwork.style.display = "none" //Masquer modalAddwork.
         modal1.style.display = "grid"
     })
-   
-    /*recuperation croix close modalAddwork*/
+    /*Récuperation croix close modalAddwork.*/
+    // const closeModal = function (e) {
+    // const stopPropagation = function (e) {
+    //     e.stopPropagation()
+    // }
+    // e.preventDefault()
+    // modalAddwork.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     const closeIcon = document.querySelector("#close2")
-
-    /*ajout dun listener sur le bouton pr fermer la modal*/
+    /*Ajout dun listener sur le bouton pr fermer la modal.*/
     closeIcon.addEventListener("click", function (e) {
+        e.preventDefault()
         modalAddwork.style.display = "none"
-      
-        // //Reinitialiser le champs du formulaire
-        // document.getElementById("form-addWork").reset()
-
     })
 }
-/*on recupere la liste déroulante de catégorie option */
+/*On recupère la liste déroulante de catégorie option.*/
 async function categorySelect() {
     const categorySelect = document.getElementById("category-option")
-    /*récupere les categories depuis l'api*/
+    /*Récupere les categories depuis l'api.*/
     await fetch("http://localhost:5678/api/categories")
         .then(response => response.json())
         .then(data => {
@@ -315,11 +315,10 @@ async function categorySelect() {
         })
         .catch(error => console.error(error))
 }
-
 /*Ecoute du click sur le bouton ajout photo */
 function previewSelectedImage() {
     const file = imageInput.files[0]
-    // test image (taille <4mo) else alert()
+    // Test image (taille <4mo) else alert()
     if (file) {
         const reader = new FileReader()
         reader.readAsDataURL(file)
@@ -327,90 +326,74 @@ function previewSelectedImage() {
             previewImage.src = e.target.result
         }
         const fileSize = imageInput.files[0].size
-        const maxSize = 4 * 1024 * 1024 // 4 Mo en octets
+        const maxSize = 4 * 1024 * 1024
         if (fileSize > maxSize) {
-          alert("Le fichier doit être inférieur ou égal à 4 Mo.")
-          return
+            alert("Le fichier doit être inférieur ou égal à 4 Mo.")
+            return
         }
         const beforeImg = document.querySelector(".before-img-select")
-        /*console.log(beforeImg, "beforeImg")*/
         beforeImg.style.display = "none"
-
         const imgSelect = document.querySelector(".img-select")
         imgSelect.style.display = "grid"
     }
 }
-
 function checkInput() {
     /*récuperation des elements de la modalAddWork*/
     if (titleInput.value !== "" && categoryInput.value !== "" && imageInput.value !== "") {
         buttonValidate.style.background = "#1D6154"
     }
 }
-/*Fonction pour affiche un message dans la modal */
-function showMessage(message, type) {
-    let messageElement = document.createElement("span")
-    messageElement.textContent = message
-    if (type === "success") {
-        messageElement.classList.add("success-message")
-    } else if (type === "delete") {
-        messageElement.classList.add("delete-message")
+
+function resetForm() {
+    if (imgSelect !== null) {
+        formAddWork.reset()
     }
-    addWork.appendChild(messageElement)
+    document.querySelector("#img-container ").style.display = ""
+    document.querySelector(".img-select").style.display = ""
+    document.querySelector(".before-img-select").style.display = "block"
 }
+
 /*Ajouter un événement pour gérer les messages d'erreur*/
-submitWork.addEventListener("submit", async function (event) {
+formAddWork.addEventListener("submit", async function (event) {
     event.preventDefault() // Empêcher le rechargement de la page
-
-    /* Vérifier si l'image est charger*/
-    if (imageInput.value === "") {
-        /*Créer un message d'erreur*/
-        let messageErrorTitle = document.createElement("span")
-        messageErrorTitle.innerText = "Veuillez mettre un image."
-        messageErrorTitle.style.color = "red"
-        messageErrorTitle.id = "messageErrorImage"
-        /*Ajouter le message d'erreur au formulaire*/
-        addWork.appendChild(messageErrorTitle)
-    }
-    /*Vérifier si le champ titre est rempli*/
-    if (titleInput.value === "") {
-        /*Créer un message d'erreur*/
-        let messageErrorTitle = document.createElement("span")
-        messageErrorTitle.innerText = "Veuillez mettre un titre valide."
-        messageErrorTitle.style.color = "red"
-        messageErrorTitle.id = "messageErrorTitle"
-        addWork.appendChild(messageErrorTitle)
-    }
-    /* Vérifier si la catégorie est selectionner*/
-    if (categoryInput.value === "") {
-        /*Créer un message d'erreur*/
-        let messageErrorTitle = document.createElement("span")
-        messageErrorTitle.innerText = "Veuillez sélectionner une catégorie."
-        messageErrorTitle.style.color = "red"
-        messageErrorTitle.id = "messageErrorId"
-        addWork.appendChild(messageErrorTitle)
-    }
-    /*Récupérer le token depuis la sessionStorage en haut */
-    /*Créer les données à envoyer à l'API*/
-    const formData = new FormData()
-    formData.append("image", imageInput.files[0])
-    formData.append("title", titleInput.value)
-    formData.append("category", categoryInput.value)
-
     try {
+        /* Vérifier si l'image est charger*/
+        if (imageInput.value === "") {
+            messageModal.innerHTML = "Veuillez mettre un image."
+            messageModal.style.color = "red"
+            return
+        }
+
+        /*Vérifier si le champ titre est rempli*/
+        if (titleInput.value === "") {
+            messageModal.innerHTML = "Veuillez mettre un titre valide."
+            messageModal.style.color = "red"
+            return
+        }
+
+        /* Vérifier si la catégorie est selectionner*/
+        if (categoryInput.value === "") {
+            messageModal.innerHTML = "Veuillez sélectionner une catégorie."
+            messageModal.style.color = "red"
+            return
+        }
+
+        /*Récupérer le token depuis la sessionStorage en haut et créer les données à envoyer à l'API*/
+        const formData = new FormData()
+        formData.append("image", imageInput.files[0])
+        formData.append("title", titleInput.value)
+        formData.append("category", categoryInput.value)
+
         const newWork = await addNewWork(formData)
         /*creer les elements à ajouter ds le DOM */
         allWorks.add(newWork)
         displayWorks()
         displayModal()
         /*Réinitialiser le formulaire*/
-        // resetForm()
-        // /*Masquer la modal-addwork*/
-        // modalAddwork.style.display = "none"
-        // /*Afficher la modal1*/
-        // modal1.style.display= "block"
+        resetForm()
         /*Ajouter un message de succès (compris dans la fonction plus haut )*/
-        showMessage("L'image a été envoyée avec succès!", "success")
+        messageModal.innerHTML = "L'image a été envoyée avec succès!", "success";
+        messageModal.style.color = "#000"
     } catch (error) {
         console.log(error)
     }
@@ -437,7 +420,6 @@ function addFilterListener() {
         filter.addEventListener("click", (e) => {
             const button = e.target
             const id = button.dataset.id
-
             //Si le bouton est actif on remove les autres filtres
             document.querySelector(".active").classList.remove("active")
             button.classList.add("active")
@@ -447,7 +429,6 @@ function addFilterListener() {
 }
 /*Pour ajouter dans la modaladdwork l'image sélectionner */
 imageInput.addEventListener('change', previewSelectedImage)
-
 /*Ajouter des écouteurs d'événements pour les champs de saisie*/
 titleInput.addEventListener("change", checkInput)
 categoryInput.addEventListener("change", checkInput)

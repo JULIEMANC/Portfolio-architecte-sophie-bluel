@@ -143,7 +143,8 @@ a {
 }
 
 /** end reset css**/
-body {
+
+.body {
 	max-width: 1140px;
 	margin: auto;
 	font-family: 'Work Sans';
@@ -252,7 +253,7 @@ section {
 }
 
 .buttonAddPhotos {
-	width: 230px;
+	width: 40%;
 	height: 35px;
 	border-radius: 60px;
 	background-color: #1D6154;
@@ -342,7 +343,7 @@ h3 {
 
 #img-container {
 	margin-top: 30px;
-	width: 420px;
+	width: 70%;
 	height: 199px;
 	border-radius: 3px;
 	border: #CBD6DC;
@@ -413,7 +414,7 @@ h3 {
 }
 
 #title-img {
-	width: 420px;
+	width: 100%;
 	height: 51px;
 }
 
@@ -495,10 +496,12 @@ li a:hover {
 	border-color: #1D6154;
 	border-radius: 60px;
 	background-color: white;
-	width: 150px;
+	width: 17%;
 	height: 50px;
 	color: #1D6154;
 	font-weight: bold;
+	font-size: 16px;
+	font: syne;
 }
 
 .active,
@@ -507,11 +510,6 @@ li a:hover {
 	color: white;
 }
 
-/* 
-.filtres:hover{
-background-color: #1D6154;	
-}
-*/
 
 #introduction {
 	display: flex;
@@ -529,10 +527,10 @@ background-color: #1D6154;
 }
 
 /** Ajout du modifier et petit logo sous image intro ( logoMod ) */
+
 .logoMod {
 	margin-top: 20px;
 	margin-left: 55px;
-
 }
 
 #introduction article {
@@ -621,6 +619,7 @@ footer nav ul {
 }
 
 /** Page connexion **/
+
 .PageDeConnexion {
 	background-color: #FFFEF8;
 }
@@ -631,6 +630,10 @@ footer nav ul {
 
 #myHeader {
 	margin-right: 70px;
+}
+
+#myHeader:active{
+	font-weight: bold;
 }
 
 #Login {
@@ -665,8 +668,8 @@ footer nav ul {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	background-color: #FFFFFF;
 	border: none;
-	width: 300px;
-	height: 40px;
+	width: 100%;
+	height: 50px;
 	margin-top: 10px;
 }
 
@@ -677,7 +680,7 @@ footer nav ul {
 
 #password {
 	width: 300px;
-	height: 40px;
+	height: 50px;
 	background-color: #FFFFFF;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -699,7 +702,7 @@ footer nav ul {
 
 #btnConnexion {
 	margin-top: 40px;
-	width: 170px;
+	width: 60%;
 	height: 45px;
 	border-radius: 60px;
 }
