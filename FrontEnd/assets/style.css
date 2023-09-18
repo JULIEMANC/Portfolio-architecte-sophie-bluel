@@ -111,6 +111,7 @@ section {
 body {
 	line-height: 1;
 	background-color: #FFFEF8;
+	font-size: 14px;
 }
 
 ol,
@@ -143,13 +144,12 @@ a {
 }
 
 /** end reset css**/
-
 .body {
 	max-width: 1140px;
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
-}
+} 
 
 header {
 	display: flex;
@@ -167,12 +167,13 @@ section {
 	height: 59px;
 	width: 100%;
 	margin: 0;
-
 }
 
 .banniere {
-	margin-left: 410px;
-
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
 }
 
 .upChange {
@@ -184,15 +185,23 @@ section {
 	font-weight: bold;
 	color: black;
 	margin-top: 12px;
+	margin-left: 80px;
 }
 
 #edition,
-#logo {
+#logo
+ {
 	text-decoration: none;
 	color: white;
 	margin-top: 10px;
+	margin-left: 150px;
 }
 
+#edition{
+	margin-left: 0px;
+	gap: 0px;
+	font-family: work sans;
+}
 
 /* FIN overlay */
 
@@ -220,7 +229,6 @@ section {
 	padding: 20px;
 	background-color: white;
 	overflow-y: auto;
-
 }
 
 #titlemodal {
@@ -239,7 +247,6 @@ section {
 	border: none;
 	width: 415px;
 	border: 1px solid #B3B3B3;
-
 }
 
 #btnMenuShow {
@@ -249,7 +256,6 @@ section {
 	align-items: center;
 	gap: 30px;
 	margin-top: 30px;
-
 }
 
 .buttonAddPhotos {
@@ -322,7 +328,6 @@ h1>span {
 	font-family: 'Work Sans';
 	font-size: 10px;
 	letter-spacing: 0.1em;
-
 }
 
 h2 {
@@ -366,7 +371,6 @@ h3 {
 	background-color: #CBD6DC;
 	padding: 10px 33px;
 	border-radius: 50px;
-
 }
 
 #img-container .fa-image {
@@ -400,7 +404,17 @@ h3 {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
 }
-
+.icons{
+	margin-top: 120px;
+}
+.fa-solid.fa-arrow-left{
+	width: 21px;
+	height: 21px;
+}
+.fa-solid.fa-xmark{
+	width: 24px;
+	height: 24px;
+}
 .img-preview {
 	width: 129px;
 	height: 180px;
@@ -447,6 +461,7 @@ form hr {
 	border: none;
 	margin-bottom: 4%;
 }
+
 #submit-work:active {
 	background-color: #1D6154;
 }
@@ -469,13 +484,18 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 
 nav li a {
-	padding: 0 10px;
-	font-size: 1.2em;
+	padding: 23px;
+	font-size: 16px;
 	text-decoration: none;
+	font-family: work sans;
+}
+
+img.inst{
+	width: 22px;
+	height: 22px;
 }
 
 li a:hover {
@@ -509,7 +529,6 @@ li a:hover {
 	background-color: #1D6154;
 	color: white;
 }
-
 
 #introduction {
 	display: flex;
@@ -547,7 +566,7 @@ li a:hover {
 
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom:80px;
 }
 
 .gallery {
@@ -561,21 +580,22 @@ li a:hover {
 .gallery img {
 	width: 310px;
 	height: 413px;
-
 }
 
 #contact {
 	width: 50%;
 	margin: auto;
+	margin-top: 80px;
 }
 
 #contact>* {
 	text-align: center;
-
+	font-size: 16px;
 }
 
 #contact h2 {
 	margin-bottom: 20px;
+	font-size: 30px;
 }
 
 #contact form {
@@ -630,10 +650,7 @@ footer nav ul {
 
 #myHeader {
 	margin-right: 70px;
-}
-
-#myHeader:active{
-	font-weight: bold;
+	font-family: 'Work Sans';
 }
 
 #Login {
@@ -657,6 +674,7 @@ footer nav ul {
 #ConnexionForm {
 	display: flex;
 	flex-direction: column;
+	font-family: 'Work Sans';
 }
 
 #ConnexionForm label {
@@ -685,7 +703,11 @@ footer nav ul {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	margin-top: 10px;
+}
 
+img.inst{
+	width: 22px;
+	height: 22px;
 }
 
 #MpOubli {
@@ -697,7 +719,6 @@ footer nav ul {
 	color: black;
 	font-family: work sans;
 	text-decoration: underline black 1px;
-
 }
 
 #btnConnexion {
@@ -707,6 +728,8 @@ footer nav ul {
 	border-radius: 60px;
 }
 
-#mentions {
-	margin-top: 200px;
+footer li#mentions {
+	margin-top: 180px;
+	font-family:work sans;
+	font-size: 14px;
 }
